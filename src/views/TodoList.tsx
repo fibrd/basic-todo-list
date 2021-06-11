@@ -1,23 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // children
 import { ListInput } from '../components/ListInput'
 import { ListComponent } from '../components/ListComponent'
 
-interface Props {}
-
-export const TodoList = (props: Props) => {
+export const TodoList = () => {
 	const [listItems, setListItems] = useState([
-		{ id: 1, value: 'first I do this' },
-		{ id: 2, value: 'then I ll do that' },
+		{ id: 1, title: 'first I do this' },
+		{ id: 2, title: 'then I ll do that' },
 	])
+	useEffect(() => {
+		fetch('https://jsonplaceholder.typicode.com/todos')
+			.then(res => res.json())
+			.then(res => setListItems(res.splice(0, 10)))
+	}, [])
 
 	const handleInputSubmit = (data: string) => {
 		const id =
 			listItems.length > 0 ? Math.max(...listItems.map(li => li.id)) + 1 : 1
 		const newItem = {
 			id,
-			value: data,
+			title: data,
 		}
 		setListItems([...listItems, newItem])
 	}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface Props {
-	listItems: { id: number; value: string }[]
+	listItems: { id: number; title: string }[]
 	onListItemRemove: (listItemId: number) => void
 }
 
@@ -13,7 +13,7 @@ export const ListComponent = (props: Props) => {
 			<ol>
 				{listItems.map(li => (
 					<li key={li.id}>
-						{li.value}
+						{li.title}
 						<button onClick={() => onListItemRemove(li.id)}>x</button>
 					</li>
 				))}
